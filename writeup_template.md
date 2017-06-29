@@ -245,5 +245,5 @@ A class named as boxes is to store the detected bounding rectangles history from
 ###Discussion
 
 ####1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
-
+This pipeline may loose objects for a couple of frames while they are doubling our car or blocking the already detections. To prevent this, there should be better false detection elimination filter and a tracking algorithm. 
 This pipleline may fail if there are non-trained objects on the road such as motorbikes big trucks etc.  To fix this, we would have to append our trainining and test sets with images of classified images of bikes, etc and adjust our feature extraction algorithm. Another issue is that the pipeline can not work in real time therefore the search and feature extraction parts shoul be modified. 
