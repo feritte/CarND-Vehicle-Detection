@@ -46,11 +46,14 @@ def get_hog_features(img, orient, pix_per_cell, cell_per_block, vis=False, featu
                        cells_per_block=(cell_per_block, cell_per_block), transform_sqrt=False, 
                        visualise=False, feature_vector=feature_vec)
         return features
-    ```
+  ```
+
 
 I started by reading in all the `vehicle` and `non-vehicle` images.  Here is an example of one of each of the `vehicle` and `non-vehicle` classes:
 
+
 ![alt text][image1]
+
 
 I then explored different color spaces and different `skimage.hog()` parameters (`orientations`, `pixels_per_cell`, and `cells_per_block`).  I grabbed random images from each of the two classes and displayed them to get a feel for what the `skimage.hog()` output looks like.
 
@@ -213,23 +216,26 @@ def slide_window(img, x_start_stop=[None, None], y_start_stop=[None, None],
     
 ![alt text][image3]
 
-####2. Show some examples of test images to demonstrate how your pipeline is working.  What did you do to optimize the performance of your classifier?
+#2. Show some examples of test images to demonstrate how your pipeline is working.  What did you do to optimize the performance of your classifier?
 
 Ultimately I searched on two scales using YCrCb 3-channel HOG features plus spatially binned color and histograms of color in the feature vector, which provided a nice result.  Here are some example images:
 
 ![alt text][image4]
 
+
 ![alt text][image5]
 
+
 ![alt text][image6]
+
 
 ![alt text][image7]
 
 ---
 
-### Video Implementation
+# Video Implementation
 
-####1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (somewhat wobbly or unstable bounding boxes are ok as long as you are identifying the vehicles most of the time with minimal false positives.)
+#1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (somewhat wobbly or unstable bounding boxes are ok as long as you are identifying the vehicles most of the time with minimal false positives.)
 Here's a [link to my video result](./project_video.mp4)
 
 
@@ -240,10 +246,9 @@ I use the OpenCV function cv2.findContours to find all of the objects in the mas
 A class named as boxes is to store the detected bounding rectangles history from each of the previous 12 frames in a list in order to track vehicles. The OpenCV function cv2.groupRectangles is to combine overlapping rectangles in to consolidated bounding boxes if there are greater than 10 overlapping boxes in the list. In other words, a detection is filtered out if it is classified as a vehicle less than 10 out of 12 consecutive frames
 
 
----
 
-###Discussion
+#Discussion
 
-####1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
+#1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 This pipeline may loose objects for a couple of frames while they are doubling our car or blocking the already detections. To prevent this, there should be better false detection elimination filter and a tracking algorithm. 
 This pipleline may fail if there are non-trained objects on the road such as motorbikes big trucks etc.  To fix this, we would have to append our trainining and test sets with images of classified images of bikes, etc and adjust our feature extraction algorithm. Another issue is that the pipeline can not work in real time therefore the search and feature extraction parts shoul be modified. 
